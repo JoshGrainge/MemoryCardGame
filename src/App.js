@@ -1,29 +1,72 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import Card from './components/Card';
+import ConsoleSelector from './components/ConsoleSelector';
 
 function App() {
-  const [cards, setCards] = useState(populateCards());
+  const [gamesInfo, setGamesInfo] = useState([]);
+  const [cards, setCards] = useState([]);
   const [score, setScore] = useState(0);
+
+  useEffect(() => {
+    getGames();
+  }, []);
+
+  useEffect(() => {
+    if (gamesInfo.length > 0) setCards(populateCards());
+  }, [gamesInfo]);
 
   // Check if win condition has been met
   useEffect(() => {
     if (score >= cards.length) console.log('YOU WIN!');
   }, [score]);
 
-  // Test populat cars method
+  let platformId = 15;
+  let key = process.env.REACT_APP_API_KEY;
+  const ps2GamesRequest = `https://api.rawg.io/api/games?key=${key}&platforms=`;
+
+  async function getGames() {
+    const response = await fetch(ps2GamesRequest + platformId);
+    const json = await response.json();
+
+    const games = [];
+
+    for (const result of json.results) {
+      games.push({
+        title: result.name,
+        image: result.background_image,
+      });
+    }
+
+    setGamesInfo(games);
+  }
+
   function populateCards() {
+    const gameInfoData = getRandomGamesInfoArray();
     const newCards = [];
     for (let i = 0; i < 12; i++) {
       newCards.push({
         id: i,
         clicked: false,
-        title: 'card-title',
-        image: null,
+        title: gameInfoData[i].title,
+        image: gameInfoData[i].image,
       });
     }
 
     return newCards;
+  }
+
+  function getRandomGamesInfoArray() {
+    console.log('Gameinfo in function: ' + gamesInfo);
+    const gameInfoCopy = [...gamesInfo];
+    const returnArray = [];
+    while (gameInfoCopy.length > 0) {
+      const randomIndex = Math.floor(Math.random() * gameInfoCopy.length);
+      returnArray.push(gameInfoCopy[randomIndex]);
+      gameInfoCopy.splice(randomIndex, 1);
+    }
+
+    return returnArray;
   }
 
   function cardClick(card) {

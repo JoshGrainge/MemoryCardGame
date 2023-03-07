@@ -22,8 +22,7 @@ function App() {
   }, [score]);
 
   let platformId = 15;
-  let key = process.env.REACT_APP_API_KEY;
-  const ps2GamesRequest = `https://api.rawg.io/api/games?key=${key}&platforms=`;
+  const ps2GamesRequest = `https://api.rawg.io/api/games?key=${process.env.REACT_APP_API_KEY}&platforms=`;
 
   async function getGames() {
     const response = await fetch(ps2GamesRequest + platformId);
@@ -57,7 +56,6 @@ function App() {
   }
 
   function getRandomGamesInfoArray() {
-    console.log('Gameinfo in function: ' + gamesInfo);
     const gameInfoCopy = [...gamesInfo];
     const returnArray = [];
     while (gameInfoCopy.length > 0) {
@@ -82,7 +80,6 @@ function App() {
     }
   }
 
-  // Map over card data and create card components for each element
   const cardElements = cards.map((card) => {
     return (
       <Card
@@ -98,6 +95,12 @@ function App() {
     <div>
       <h1>Score: {score}</h1>
       <div className="cards-container">{cardElements}</div>
+      <ConsoleSelector
+        handleClick={(e) => {
+          platformId = e.target.value;
+          getGames();
+        }}
+      />
     </div>
   );
 }

@@ -4,6 +4,12 @@ import Card from './components/Card';
 
 function App() {
   const [cards, setCards] = useState(populateCards());
+  const [score, setScore] = useState(0);
+
+  // Check if win condition has been met
+  useEffect(() => {
+    if (score >= cards.length) console.log('YOU WIN!');
+  }, [score]);
 
   // Test populat cars method
   function populateCards() {
@@ -20,25 +26,37 @@ function App() {
     return newCards;
   }
 
-  function cardClick(id) {
-    console.log('Clicked card with id: ' + id);
-    // If card clicked, gameover
-    // Else increase score
-    // If all cards have been clicked you win the round
+  function cardClick(card) {
+    if (card.clicked) {
+      console.log('Gameover');
+    } else {
+      setCards(
+        cards.map((newCard) => {
+          return newCard.id === card.id ? { ...card, clicked: true } : newCard;
+        })
+      );
+      setScore((prev) => prev + 1);
+    }
   }
 
   // Map over card data and create card components for each element
   const cardElements = cards.map((card) => {
     return (
       <Card
-        handleClick={() => cardClick(card.id)}
+        key={card.id}
+        handleClick={() => cardClick(card)}
         title={card.title}
         image={card.image}
       />
     );
   });
 
-  return <div className="cards-container">{cardElements}</div>;
+  return (
+    <div>
+      <h1>Score: {score}</h1>
+      <div className="cards-container">{cardElements}</div>
+    </div>
+  );
 }
 
 export default App;

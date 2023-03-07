@@ -2,7 +2,7 @@ function ConsoleSelector({ handleClick }) {
   return (
     <select onChange={handleClick}>
       <option value={27}>PS1</option>
-      <option selected value={15}>
+      <option defaultValue value={15}>
         PS2
       </option>
       <option value={16}>PS3</option>

@@ -55,6 +55,24 @@ function App() {
     return newCards;
   }
 
+  function shuffleCards() {
+    const newCards = [...cards];
+    let currentIndex = cards.length,
+      randomIndex;
+
+    while (currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      [newCards[currentIndex], newCards[randomIndex]] = [
+        newCards[randomIndex],
+        newCards[currentIndex],
+      ];
+    }
+
+    return newCards;
+  }
+
   function getRandomGamesInfoArray() {
     const gameInfoCopy = [...gamesInfo];
     const returnArray = [];
@@ -71,8 +89,10 @@ function App() {
     if (card.clicked) {
       console.log('Gameover');
     } else {
+      // Shuffle cards and set card just clicked value to be true
+      const newCards = shuffleCards();
       setCards(
-        cards.map((newCard) => {
+        newCards.map((newCard) => {
           return newCard.id === card.id ? { ...card, clicked: true } : newCard;
         })
       );

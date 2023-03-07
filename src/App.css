@@ -1,3 +1,9 @@
+:root{
+  --main-color: #CE4257;
+  --secondary-color: #FF7F51;
+  --accent-color: #FF9b54;
+}
+
 .App {
   text-align: center;
 }
@@ -35,4 +41,23 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+body{
+  background-color: var(--main-color);
+}
+
+.cards-container{
+  display: grid;
+  grid-template: repeat(2, 1fr) / repeat(6, 1fr) ;
+  gap: 20px;
+  width: 80vw;
+  height: 80vh;
+}
+
+.card{
+  background-color: var(--secondary-color);
+  text-align: center;
+  border-radius: 5px;
+  border: 10px solid var(--accent-color)
 }

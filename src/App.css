@@ -83,7 +83,6 @@ main{
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  padding: 1em;
   transition: 0.5s;
 }
 

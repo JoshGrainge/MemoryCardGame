@@ -2,27 +2,33 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import Card from './components/Card';
 import ConsoleSelector from './components/ConsoleSelector';
+import GameOverModal from './components/GameOverModal';
 
-// TODO make gameover screen
 // TODO when changing console selector value start new game
-// TODO make new game logic (for gameover new game button and console selector)
 
 function App() {
   const [gamesInfo, setGamesInfo] = useState([]);
   const [cards, setCards] = useState([]);
   const [score, setScore] = useState(0);
+  const [gameOver, setGameOver] = useState(false);
+  const [gameWon, setGameWon] = useState(false);
 
   useEffect(() => {
     getGames();
   }, []);
 
   useEffect(() => {
-    if (gamesInfo.length > 0) setCards(populateCards());
+    if (gamesInfo.length) setCards(populateCards());
   }, [gamesInfo]);
 
   // Check if win condition has been met
   useEffect(() => {
-    if (score >= cards.length) console.log('YOU WIN!');
+    if (score >= cards.length && cards.length) {
+      setGameWon(true);
+      setGameOver(true);
+    } else {
+      setGameWon(false);
+    }
   }, [score]);
 
   let platformId = 15;
@@ -64,7 +70,7 @@ function App() {
     let currentIndex = cards.length,
       randomIndex;
 
-    while (currentIndex != 0) {
+    while (currentIndex !== 0) {
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
 
@@ -91,7 +97,7 @@ function App() {
 
   function cardClick(card) {
     if (card.clicked) {
-      console.log('Gameover');
+      setGameOver(true);
     } else {
       // Shuffle cards and set card just clicked value to be true
       const newCards = shuffleCards();
@@ -102,6 +108,13 @@ function App() {
       );
       setScore((prev) => prev + 1);
     }
+  }
+
+  function newGame() {
+    setCards(populateCards());
+    setGameOver(false);
+    setGameWon(false);
+    setScore(0);
   }
 
   const cardElements = cards.map((card) => {
@@ -116,7 +129,7 @@ function App() {
   });
 
   return (
-    <div>
+    <main>
       <h1>Score: {score}</h1>
       <div className="cards-container">{cardElements}</div>
       <ConsoleSelector
@@ -125,7 +138,8 @@ function App() {
           getGames();
         }}
       />
-    </div>
+      {gameOver && <GameOverModal gameWon={gameWon} newGameClick={newGame} />}
+    </main>
   );
 }
 

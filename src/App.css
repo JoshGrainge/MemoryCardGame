@@ -1,9 +1,10 @@
 :root{
-  --main-color: #CE4257;
-  --secondary-color: #FF7F51;
-  --accent-color: #FF9b54;
+  --main-color: #f4722b;
+  --secondary-color: #ff9f6b;
+  --accent-color: #f5e5c1;
 
-  --border: 10px solid var(--accent-color);
+  --border: 7px solid var(--accent-color);
+  --text-color: rgb(255, 255, 255);
   --text-color: #191919;
   color: var(--text-color)
 }
@@ -55,6 +56,13 @@ main{
   position: relative;
   font-family: Arial, Helvetica, sans-serif;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  height: 100vh;
+  width: 100vw;
 }
 
 .cards-container{
@@ -63,6 +71,8 @@ main{
   gap: 20px;
   width: 80vw;
   height: 80vh;
+
+  margin: 20px;
 }
 
 .card{
@@ -72,6 +82,7 @@ main{
   border: var(--border);
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 
 .card-image{
@@ -79,10 +90,11 @@ main{
   height: 70%;
   object-fit: cover;
   margin-bottom: 10px;
+  border-bottom: var(--border);
 }
 
 .card > h2{
-  margin: 0;
+  margin: 5px;
 }
 
 .modal-bg{
@@ -132,3 +144,44 @@ main{
   box-shadow: inset 0 0 4px 0 rgb(31, 31, 31);
 }
 
+.box {
+  position: relative;
+}
+
+.box select {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  padding: 12px;
+  width: 250px;
+  border: none;
+  font-size: 20px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  -webkit-appearance: button;
+  appearance: button;
+  outline: none;
+  cursor: pointer;
+}
+
+.box::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20%;
+  height: 100%;
+  text-align: center;
+  font-size: 28px;
+  line-height: 45px;
+  color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+.box:hover::before {
+  color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.2);
+
+}
+
+.box select option {
+  padding: 30px;
+}

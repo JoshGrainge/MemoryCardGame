@@ -136,8 +136,10 @@ function App() {
         handleClick={(e) => {
           platformId = e.target.value;
           getGames();
+          newGame();
         }}
       />
+      <p>*Switching game console will restart game</p>
       {gameOver && <GameOverModal gameWon={gameWon} newGameClick={newGame} />}
     </main>
   );

@@ -83,6 +83,13 @@ main{
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  padding: 1em;
+  transition: 0.5s;
+}
+
+.card:hover{
+  margin-top: -10px;
+  box-shadow: 0 0 50px 10px rgb(253, 255, 159);
 }
 
 .card-image{

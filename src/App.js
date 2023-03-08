@@ -3,6 +3,10 @@ import React, { useState, useEffect } from 'react';
 import Card from './components/Card';
 import ConsoleSelector from './components/ConsoleSelector';
 
+// TODO make gameover screen
+// TODO when changing console selector value start new game
+// TODO make new game logic (for gameover new game button and console selector)
+
 function App() {
   const [gamesInfo, setGamesInfo] = useState([]);
   const [cards, setCards] = useState([]);

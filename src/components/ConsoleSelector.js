@@ -1,10 +1,8 @@
 function ConsoleSelector({ handleClick }) {
   return (
-    <select onChange={handleClick}>
+    <select onChange={handleClick} defaultValue={15}>
       <option value={27}>PS1</option>
-      <option defaultValue value={15}>
-        PS2
-      </option>
+      <option value={15}>PS2</option>
       <option value={16}>PS3</option>
       <option value={17}>PSP</option>
       <option value={18}>PS4</option>
@@ -19,7 +17,7 @@ function ConsoleSelector({ handleClick }) {
       <option value={83}>N64</option>
       <option value={105}>Gamecube</option>
       <option value={11}>Wii</option>
-      <option value={10}>WiiU</option>
+      <option value={10}>Wii U</option>
       <option value={7}>Switch</option>
     </select>
   );

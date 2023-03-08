@@ -52,6 +52,20 @@ body{
   background-color: var(--main-color);
 }
 
+.header{
+  display: flex;
+  flex-direction: column;
+}
+
+.header > p{
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.rules-text{
+  margin-left: auto;
+}
+
 main{
   position: relative;
   font-family: 'Yanone Kaffeesatz', sans-serif;

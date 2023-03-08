@@ -1,5 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
+import Header from './components/Header';
 import Card from './components/Card';
 import ConsoleSelector from './components/ConsoleSelector';
 import GameOverModal from './components/GameOverModal';
@@ -130,7 +131,7 @@ function App() {
 
   return (
     <main>
-      <h1>Score: {score}</h1>
+      <Header score={score} />
       <div className="cards-container">{cardElements}</div>
       <ConsoleSelector
         handleClick={(e) => {
